@@ -1,12 +1,25 @@
-import { useState, createContext, useContext} from "react";
+import { useState, createContext, useContext } from "react";
 
 const WalletContext = createContext();
 
 const WalletProvider = ({ children }) => {
+  const [connectWallet, setConnectWallet] = useState({
+    status: false,
+    accountAddress: null,
+  });
+  const [walletState, setWalletState] = useState({
+    provider: null,
+    signer: null,
+    contract: null,
+  });
 
-   const [connectWallet, setConnectWallet] = useState(true);
-
-   return <WalletContext.Provider value={{ connectWallet, setConnectWallet }}>{children}</WalletContext.Provider>;
+  return (
+    <WalletContext.Provider
+      value={{ connectWallet, setConnectWallet, walletState, setWalletState }}
+    >
+      {children}
+    </WalletContext.Provider>
+  );
 };
 
 const useWallet = () => useContext(WalletContext);

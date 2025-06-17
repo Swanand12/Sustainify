@@ -6,6 +6,7 @@ export const fetchAllTransactionsForBidController = async (req, res) => {
 
     const transactions = await transactionModel
       .find({ transactionBid: bid })
+      .populate("buyer", "name")
       .sort({ totalCost: -1 });
 
     res.status(200).send({
